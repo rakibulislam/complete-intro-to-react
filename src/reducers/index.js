@@ -3,6 +3,6 @@ import location from "./location";
 import theme from "./theme";
 
 export default combineReducers({
-  location,
+  location: location,
   theme
 });

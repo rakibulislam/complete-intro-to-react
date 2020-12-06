@@ -3,10 +3,12 @@ import pet, { ANIMALS } from "@frontendmasters/pet";
 import { connect } from "react-redux";
 import useDropdown from "./useDropdown";
 import Results from "./Results";
+
 import changeLocation from "./actionCreator/changeLocation";
 import changeTheme from "./actionCreator/changeTheme";
 
 const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
+  // const SearchParams = (props) => {
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
   const [animal, AnimalDropdown] = useDropdown("Animal", "dog", ANIMALS);
@@ -73,18 +75,16 @@ const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
   );
 };
 
+// props.location
 const mapStateToProps = ({ theme, location }) => ({
   theme,
   location
 });
 
+// setting data to redux store
 const mapDispatchToProps = dispatch => ({
-  setLocation(location) {
-    dispatch(changeLocation(location));
-  },
-  setTheme(theme) {
-    dispatch(changeTheme(theme));
-  }
+  updateLocation: location => dispatch(changeLocation(location)),
+  setTheme: theme => dispatch(changeTheme(theme))
 });
 
 export default connect(
