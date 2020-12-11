@@ -6,8 +6,9 @@ import Results from "./Results";
 
 import changeLocation from "./actionCreator/changeLocation";
 import changeTheme from "./actionCreator/changeTheme";
+import changeTextBackgroundColor from "./actionCreator/changeTextBackgroundColor";
 
-const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
+const SearchParams = ({ theme, location, textBackgroundColor, setTheme, updateLocation, setTextBackgroundColor }) => {
   // const SearchParams = (props) => {
   const [breeds, updateBreeds] = useState([]);
   const [pets, setPets] = useState([]);
@@ -70,21 +71,42 @@ const SearchParams = ({ theme, location, setTheme, updateLocation }) => {
         </label>
         <button style={{ backgroundColor: theme }}>Submit</button>
       </form>
+
+      <label htmlFor="text background color">
+          Pick text background color:
+          <select
+            value={textBackgroundColor}
+            onChange={e => setTextBackgroundColor(e.target.value)}
+            onBlur={e => setTextBackgroundColor(e.target.value)}
+          >
+            <option value="peru">Peru</option>
+            <option value="darkblue">Dark Blue</option>
+            <option value="chartreuse">Chartreuse</option>
+            <option value="mediumorchid">Medium Orchid</option>
+          </select>
+        </label>
+
+      <div style={{ backgroundColor: textBackgroundColor }}>
+        Hello, Redux!
+      </div>
+
       <Results pets={pets} />
     </div>
   );
 };
 
-// props.location
-const mapStateToProps = ({ theme, location }) => ({
+// props.location, props.textBackgroundColor
+const mapStateToProps = ({ theme, location, textBackgroundColor }) => ({
   theme,
-  location
+  location,
+  textBackgroundColor
 });
 
 // setting data to redux store
 const mapDispatchToProps = dispatch => ({
-  updateLocation: location => dispatch(changeLocation(location)),
-  setTheme: theme => dispatch(changeTheme(theme))
+  updateLocation: location => dispatch(changeLocation(location)), // { type: 'XYZ', payload: 'blue' }
+  setTheme: theme => dispatch(changeTheme(theme)),
+  setTextBackgroundColor: textBackgroundColor => dispatch(changeTextBackgroundColor(textBackgroundColor)) // { type: "CHANGE_TEXT_BACKGROUND_COLOR", payload: 'darkblue' }
 });
 
 export default connect(
